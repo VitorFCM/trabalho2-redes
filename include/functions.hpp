@@ -15,6 +15,7 @@ void MeioComunicacao(std::vector<int>);
 
 //Receptor
 void CamadaEnlaceReceptora(std::vector<int> bits);
+void CamadaAplicacaoReceptora(string msg);
 
 #endif
 
