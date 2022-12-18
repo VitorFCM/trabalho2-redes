@@ -28,6 +28,42 @@ void TransmissoraControleErroCRC(vector<int>* bits) {
 
 }
 
+void CamadaEnlaceTransmissoraErroBitParidadePar(vector<int> *bits) {
+
+	  int tamanho_msg = bits->size() + 1; 
+	  bool paridade = false;
+
+	  // Paridade do dado 
+	  for (int i = 0; i < bits->size(); i++) 
+		    if ((*bits)[i] == 1) 
+		    	paridade = !paridade;
+
+	  bits->push_back(paridade);
+
+	  for (int i = 0; i < tamanho_msg; i++)
+	  	cout << (*bits)[i];
+
+	  cout << endl;
+}
+
+void CamadaEnlaceTransmissoraErroBitParidadeImpar(vector<int> *bits) {
+
+	  int tamanho_msg = bits->size() + 1; 
+	  bool paridade = true;
+
+	  // Paridade do dado 
+	  for (int i = 0; i < bits->size(); i++) 
+		    if ((*bits)[i] == 1) 
+		    	paridade = !paridade;
+
+	  bits->push_back(paridade);
+
+	  for (int i = 0; i < tamanho_msg; i++)
+	  	cout << (*bits)[i];
+
+	  cout << endl;
+}
+
 void CamadaEnlaceTransmissora(vector<int> bits) {
 	int tipoDeControleDeErro = 2;
 
@@ -36,6 +72,7 @@ void CamadaEnlaceTransmissora(vector<int> bits) {
 
 		case 0:
 			cout << "bit pariedade par" << endl;
+			
 			break;
 		case 1:
 			cout << "bit pariedade impar" << endl;
