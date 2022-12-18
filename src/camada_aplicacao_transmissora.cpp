@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 #include<bits/stdc++.h>
-#include "functions.h"
+#include "../include/functions.hpp"
 
 using namespace std;
 
-vector<int> CamadaAplicacaoTransmissora(string msg)
+void CamadaAplicacaoTransmissora(string msg)
 {
 	vector<int> bits;
 	for(int i = 0; i < msg.size(); i++)
@@ -14,5 +14,6 @@ vector<int> CamadaAplicacaoTransmissora(string msg)
 		for(int j = 0; j < 8; j++)bits.push_back(b[j]);
 	}
 
-	return bits;
+	CamadaEnlaceTransmissora(bits);
+
 }

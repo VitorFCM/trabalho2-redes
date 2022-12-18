@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string>
-#include "functions.h"
+#include "../include/functions.hpp"
 
 using namespace std;
 
-string AplicacaoTransmissora()
+void AplicacaoTransmissora()
 {
 	string msg;
 	cout << "Digite uma mensagem: ";
 	cin >> msg;
 
-	return msg;
+	CamadaAplicacaoTransmissora(msg);
 }
 
