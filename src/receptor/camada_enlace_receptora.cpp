@@ -41,29 +41,100 @@ vector<int> ReceptorControleErroCRC(vector<int> *bits)
 	return msg_original;
 }
 
+vector<int> CamadaEnlaceReceptoraErroBitParidadePar(vector<int> *bits) {
+
+	cout << endl
+		<< "---- RECEPCAO PARIDADE PAR ----" << endl;
+
+	vector<int> msg_original;
+	int tamanho_msg = bits->size() - 1;
+
+	msg_original.insert(msg_original.begin(), bits->begin(), bits->begin() + tamanho_msg);
+
+	bool paridade = false;
+
+	cout << endl
+		<< ">> QUADRO: ";
+
+	for (int i = 0; i < tamanho_msg; i++)
+		if ((*bits)[i] == 1)
+			paridade = !paridade;
+
+	if ((*bits)[tamanho_msg] != int(paridade)) {
+		cout << endl
+			<< ">> ERRO NA MENSAGEM" << endl;
+	}
+	else {
+		cout << endl
+			<< ">> QUADRO: ";
+		for (int i = 0; i <  bits->size(); i++)
+			cout << (*bits)[i];
+	}
+	cout << endl;
+
+	return msg_original;
+}
+
+vector<int> CamadaEnlaceReceptoraErroBitParidadeImpar(vector<int> *bits) {
+
+	cout << endl
+		<< "---- RECEPCAO PARIDADE PAR ----" << endl;
+
+	vector<int> msg_original;
+	int tamanho_msg = bits->size() - 1;
+
+	msg_original.insert(msg_original.begin(), bits->begin(), bits->begin() + tamanho_msg);
+
+	bool paridade = true;
+
+	cout << endl
+		<< ">> QUADRO: ";
+
+	for (int i = 0; i < tamanho_msg; i++)
+		if ((*bits)[i] == 1)
+			paridade = !paridade;
+
+	if ((*bits)[tamanho_msg] != int(paridade)) {
+		cout << endl
+			<< ">> ERRO NA MENSAGEM" << endl;
+	}
+	else {
+		cout << endl
+			<< ">> QUADRO: ";
+		for (int i = 0; i <  bits->size(); i++)
+			cout << (*bits)[i];
+	}
+	cout << endl;
+
+	return msg_original;
+}
+
 void CamadaEnlaceReceptora(vector<int> bits)
 {
 
 	//Controle de erro
-	int tipoDeControleDeErro = 2;
+	int tipoDeControleDeErro = 0;
 
+	//A mensagem recebida pode estar corrompida ou nao
+	vector<int> msg_recebida;
 
 	switch(tipoDeControleDeErro){
 
 		case 0:
 			cout << "bit pariedade par" << endl;
+			msg_recebida = CamadaEnlaceReceptoraErroBitParidadePar(&bits);
 			break;
 		case 1:
 			cout << "bit pariedade impar" << endl;
+			msg_recebida = CamadaEnlaceReceptoraErroBitParidadeImpar(&bits);
 			break;
 		case 2:
 
 			cout << "teste CRC" << endl;
-			ReceptorControleErroCRC(&bits);
+			msg_recebida = ReceptorControleErroCRC(&bits);
 			break;
 
 	}
-	//Fim do controle de erro
+
+
 }
-
-
