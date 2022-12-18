@@ -7,6 +7,5 @@ void AplicacaoTransmissora();
 void CamadaAplicacaoTransmissora(std::string msg);
 void CamadaEnlaceTransmissora(std::vector<int> bits);
 
-
 #endif
 
