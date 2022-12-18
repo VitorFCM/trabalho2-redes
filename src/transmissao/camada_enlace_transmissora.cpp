@@ -3,68 +3,77 @@
 
 using namespace std;
 
-void TransmissoraControleErroCRC(vector<int>* bits) {
+void TransmissorControleErroCRC(vector<int>* bits) {
 
 	//CRC-32
 
-	int polinomio[27] = {1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
+	int polinomio[32] = {0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
 
-	vector<int> final_mensagem(31, 0);
+	vector<int> zeros(31, 0);
 
-	int tamanho_msg = bits->size();
+	vector<int> msg_original = *bits;
 
-	bits->insert(bits->end(), final_mensagem.begin(), final_mensagem.end());
+	bits->insert(bits->end(), zeros.begin(), zeros.end());
 
-	for (int i = 0; i < tamanho_msg; i++){
+	for (int i = 0; i < msg_original.size(); i++){
 		if ((*bits)[i] == 1)
 		{
-			//Faz o XOR com todos os elementos do polinomio
-			for (int j = 0; j < 27; j++)
+			for (int j = 0; j < 32; j++)
 			{
 				(*bits)[j + i] ^= polinomio[j];
 			}
 		}
 	}
+	/*
+	   for(int i = 0; i < msg_original.size(); i++){
+	   cout << msg_original[i];
+	   (*bits)[i] = msg_original[i];
+	   }
 
+	   cout << endl;
+	   */
 }
 
 void CamadaEnlaceTransmissoraErroBitParidadePar(vector<int> *bits) {
 
-	  int tamanho_msg = bits->size() + 1; 
-	  bool paridade = false;
+	int tamanho_msg = bits->size() + 1;
+	bool paridade = false;
 
-	  // Paridade do dado 
-	  for (int i = 0; i < bits->size(); i++) 
-		    if ((*bits)[i] == 1) 
-		    	paridade = !paridade;
+	// Paridade do dado
+	for (int i = 0; i < bits->size(); i++)
+		if ((*bits)[i] == 1)
+			paridade = !paridade;
 
-	  bits->push_back(paridade);
+	bits->push_back(paridade);
 
-	  for (int i = 0; i < tamanho_msg; i++)
-	  	cout << (*bits)[i];
+	for (int i = 0; i < tamanho_msg; i++)
+		cout << (*bits)[i];
 
-	  cout << endl;
+	cout << endl;
 }
 
 void CamadaEnlaceTransmissoraErroBitParidadeImpar(vector<int> *bits) {
 
-	  int tamanho_msg = bits->size() + 1; 
-	  bool paridade = true;
+	int tamanho_msg = bits->size() + 1;
+	bool paridade = true;
 
-	  // Paridade do dado 
-	  for (int i = 0; i < bits->size(); i++) 
-		    if ((*bits)[i] == 1) 
-		    	paridade = !paridade;
+	// Paridade do dado
+	for (int i = 0; i < bits->size(); i++)
+		if ((*bits)[i] == 1)
+			paridade = !paridade;
 
-	  bits->push_back(paridade);
+	bits->push_back(paridade);
 
-	  for (int i = 0; i < tamanho_msg; i++)
-	  	cout << (*bits)[i];
+	for (int i = 0; i < tamanho_msg; i++)
+		cout << (*bits)[i];
 
-	  cout << endl;
+	cout << endl;
 }
 
-void CamadaEnlaceTransmissora(vector<int> bits) {
+void CamadaEnlaceTransmissora(vector<int> bits)
+{
+
+	//Controle de erro
 	int tipoDeControleDeErro = 2;
 
 
@@ -72,7 +81,7 @@ void CamadaEnlaceTransmissora(vector<int> bits) {
 
 		case 0:
 			cout << "bit pariedade par" << endl;
-			
+
 			break;
 		case 1:
 			cout << "bit pariedade impar" << endl;
@@ -80,14 +89,12 @@ void CamadaEnlaceTransmissora(vector<int> bits) {
 		case 2:
 
 			cout << "teste CRC" << endl;
-			TransmissoraControleErroCRC(&bits);
+			TransmissorControleErroCRC(&bits);
 			break;
 
 	}
 
-	for(int i = 0; i < bits.size(); i++)
-	{
-		cout << bits[i];
-	}
+
+	MeioComunicacao(bits);
 }
 
