@@ -5,33 +5,33 @@ using namespace std;
 
 void TransmissorControleErroCRC(vector<int>* bits) {
 
-	//CRC-32
+	//Os zeros do inicio do polinomio CRC-32 foram removidos
+	int polinomio[27] = {1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
 
-	int polinomio[32] = {0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
-
-	vector<int> zeros(31, 0);
-
+	//Realiza uma copia da mensagem original antes da divisao
 	vector<int> msg_original = *bits;
 
+	//Criando vetor com 32 - 1 zeros
+	vector<int> zeros(31, 0);
+
+	//Adicionando 31 zeros no final da cadeia de bits da mensagem
 	bits->insert(bits->end(), zeros.begin(), zeros.end());
 
+	//Divisao da mensagem original pelo polinomio CRC-23
 	for (int i = 0; i < msg_original.size(); i++){
 		if ((*bits)[i] == 1)
 		{
-			for (int j = 0; j < 32; j++)
+			for (int j = 0; j < 27; j++)
 			{
 				(*bits)[j + i] ^= polinomio[j];
 			}
 		}
 	}
-	/*
-	   for(int i = 0; i < msg_original.size(); i++){
-	   cout << msg_original[i];
-	   (*bits)[i] = msg_original[i];
-	   }
 
-	   cout << endl;
-	   */
+	//A mensagem original eh copiada para o inicio do vetor bits
+	for(int i = 0; i < msg_original.size(); i++)
+		(*bits)[i] = msg_original[i];
+
 }
 
 void CamadaEnlaceTransmissora(vector<int> bits)
@@ -56,15 +56,10 @@ void CamadaEnlaceTransmissora(vector<int> bits)
 			break;
 
 	}
+	//Fim do controle de erro
 
 
 	MeioComunicacao(bits);
-	//Fim do controle de erro
 
-	/*
-	   for(int i = 0; i < bits.size(); i++)
-	   {
-	   cout << bits[i];
-	   }*/
 }
 
