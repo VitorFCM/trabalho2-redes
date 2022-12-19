@@ -8,6 +8,8 @@ using namespace std;
 void CamadaAplicacaoReceptora(vector<int> bits)
 {
 	string msg ="";
+	char ch;
+	unsigned long ich;
 	cout << "Mensagem convertida em string: ";
 	for(int i = 0; i < bits.size()/8; i++){
 		bitset<8> b;
@@ -16,7 +18,9 @@ void CamadaAplicacaoReceptora(vector<int> bits)
 			b[j]=bits[8*i+j];
 			cout << b[j];
 		}
-		msg = msg + b.to_string();
+		ich = b.to_ulong(); 
+		ch = static_cast<char>( ich );
+		msg = msg + (char) ch;
 	}
 
 	cout << endl;
