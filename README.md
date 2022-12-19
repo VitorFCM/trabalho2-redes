@@ -9,3 +9,4 @@ Vitor Favrin Carrera Miguel - No USP: 11800646
 
 Guilherme Azevedo Escudeiro - No USP: 11345600
 
+Desenvolvido no Fedora 35
