@@ -5,6 +5,8 @@ using namespace std;
 
 void TransmissoraControleErroCRC(vector<int>* bits) {
 
+	cout << "Controle CRC - Transmissao" << endl;
+
 	//Os zeros do inicio do polinomio CRC-32 foram removidos
 	int polinomio[27] = {1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
 
@@ -36,37 +38,30 @@ void TransmissoraControleErroCRC(vector<int>* bits) {
 
 void CamadaEnlaceTransmissoraErroBitParidadePar(vector<int> *bits) {
 
-	cout << endl
-		<< "---- CONTROLE PARIDADE PAR ----" << endl;
+	cout << "Pariedade Par - Transmissao" << endl;
 
 	int tamanho_msg = bits->size() + 1;
 	bool paridade = false;
 
-	cout << endl
-		<< ">> QUADRO: ";
-
 	for (int i = 0; i < bits->size(); i++)
 		if ((*bits)[i] == 1)
 			paridade = !paridade;
 
 	bits->push_back(paridade);
 
+	cout << "Quadro:" << endl;
 	for (int i = 0; i < tamanho_msg; i++)
 		cout << (*bits)[i];
-
 	cout << endl;
+
 }
 
 void CamadaEnlaceTransmissoraErroBitParidadeImpar(vector<int> *bits) {
 
-	cout << endl
-		<< "---- CONTROLE PARIDADE IMPAR ----" << endl;
+	cout << "Pariedade Impar - Transmissao" << endl;
 
 	int tamanho_msg = bits->size() + 1;
 	bool paridade = true;
-
-	cout << endl
-		<< ">> QUADRO: ";
 
 	for (int i = 0; i < bits->size(); i++)
 		if ((*bits)[i] == 1)
@@ -74,6 +69,7 @@ void CamadaEnlaceTransmissoraErroBitParidadeImpar(vector<int> *bits) {
 
 	bits->push_back(paridade);
 
+	cout << "Quadro:" << endl;
 	for (int i = 0; i < tamanho_msg; i++)
 		cout << (*bits)[i];
 
@@ -85,15 +81,12 @@ void CamadaEnlaceTransmissora(vector<int> bits) {
 	switch(tipoDeControleDeErro) {
 
 		case 0:
-			cout << "bit pariedade par" << endl;
 			CamadaEnlaceTransmissoraErroBitParidadePar(&bits);
 			break;
 		case 1:
-			cout << "bit pariedade impar" << endl;
 			CamadaEnlaceTransmissoraErroBitParidadeImpar(&bits);
 			break;
 		case 2:
-			cout << "teste CRC" << endl;
 			TransmissoraControleErroCRC(&bits);
 			break;
 
