@@ -5,6 +5,8 @@ using namespace std;
 
 vector<int> ReceptorControleErroCRC(vector<int> *bits)
 {
+	cout << "Controle CRC - Recepcao" << endl;
+
 	//Os zeros do inicio do polinomio CRC-32 foram removidos
 	int polinomio[27] = {1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1};
 
@@ -43,8 +45,7 @@ vector<int> ReceptorControleErroCRC(vector<int> *bits)
 
 vector<int> CamadaEnlaceReceptoraErroBitParidadePar(vector<int> *bits) {
 
-	cout << endl
-		<< "---- RECEPCAO PARIDADE PAR ----" << endl;
+	cout << "Pariedade Par - Recepcao" << endl;
 
 	vector<int> msg_original;
 	int tamanho_msg = bits->size() - 1;
@@ -53,23 +54,18 @@ vector<int> CamadaEnlaceReceptoraErroBitParidadePar(vector<int> *bits) {
 
 	bool paridade = false;
 
-	cout << endl
-		<< ">> QUADRO: ";
-
 	for (int i = 0; i < tamanho_msg; i++)
 		if ((*bits)[i] == 1)
 			paridade = !paridade;
 
-	if ((*bits)[tamanho_msg] != int(paridade)) {
-		cout << endl
-			<< ">> ERRO NA MENSAGEM" << endl;
-	}
-	else {
-		cout << endl
-			<< ">> QUADRO: ";
-		for (int i = 0; i <  bits->size(); i++)
-			cout << (*bits)[i];
-	}
+	if ((*bits)[tamanho_msg] != int(paridade))
+		cout << "Mensagem corrompida" << endl;
+	else
+		cout << "Mensagem integra" << endl;
+
+	cout << "Quadro:" << endl;
+	for (int i = 0; i <  bits->size(); i++)
+		cout << (*bits)[i];
 	cout << endl;
 
 	return msg_original;
@@ -77,8 +73,7 @@ vector<int> CamadaEnlaceReceptoraErroBitParidadePar(vector<int> *bits) {
 
 vector<int> CamadaEnlaceReceptoraErroBitParidadeImpar(vector<int> *bits) {
 
-	cout << endl
-		<< "---- RECEPCAO PARIDADE PAR ----" << endl;
+	cout << "Pariedade Impar - Recepcao" << endl;
 
 	vector<int> msg_original;
 	int tamanho_msg = bits->size() - 1;
@@ -87,23 +82,19 @@ vector<int> CamadaEnlaceReceptoraErroBitParidadeImpar(vector<int> *bits) {
 
 	bool paridade = true;
 
-	cout << endl
-		<< ">> QUADRO: ";
-
 	for (int i = 0; i < tamanho_msg; i++)
 		if ((*bits)[i] == 1)
 			paridade = !paridade;
 
-	if ((*bits)[tamanho_msg] != int(paridade)) {
-		cout << endl
-			<< ">> ERRO NA MENSAGEM" << endl;
-	}
-	else {
-		cout << endl
-			<< ">> QUADRO: ";
-		for (int i = 0; i <  bits->size(); i++)
-			cout << (*bits)[i];
-	}
+	if ((*bits)[tamanho_msg] != int(paridade))
+		cout << "Mensagem corrompida" << endl;
+	else
+		cout << "Mensagem integra" << endl;
+
+
+	cout << "Quadro:" << endl;
+	for (int i = 0; i <  bits->size(); i++)
+		cout << (*bits)[i];
 	cout << endl;
 
 	return msg_original;
@@ -121,16 +112,12 @@ void CamadaEnlaceReceptora(vector<int> bits)
 	switch(tipoDeControleDeErro){
 
 		case 0:
-			cout << "bit pariedade par" << endl;
 			msg_recebida = CamadaEnlaceReceptoraErroBitParidadePar(&bits);
 			break;
 		case 1:
-			cout << "bit pariedade impar" << endl;
 			msg_recebida = CamadaEnlaceReceptoraErroBitParidadeImpar(&bits);
 			break;
 		case 2:
-
-			cout << "teste CRC" << endl;
 			msg_recebida = ReceptorControleErroCRC(&bits);
 			break;
 

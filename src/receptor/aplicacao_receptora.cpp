@@ -6,6 +6,6 @@ using namespace std;
 
 void AplicacaoReceptora(string msg)
 {
-	cout << "A mensagem recebida foi: " << msg;
+	cout << "A mensagem recebida foi: " << msg << endl;
 }
 
