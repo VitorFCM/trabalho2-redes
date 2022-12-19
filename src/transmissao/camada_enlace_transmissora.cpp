@@ -34,6 +34,11 @@ void TransmissoraControleErroCRC(vector<int>* bits) {
 	for(int i = 0; i < msg_original.size(); i++)
 		(*bits)[i] = msg_original[i];
 
+	cout << "Final:" << endl;
+	for(int i = 0; i < bits->size(); i++)
+		cout << (*bits)[i];
+	cout << endl;
+
 }
 
 void CamadaEnlaceTransmissoraErroBitParidadePar(vector<int> *bits) {
@@ -77,7 +82,10 @@ void CamadaEnlaceTransmissoraErroBitParidadeImpar(vector<int> *bits) {
 }
 
 void CamadaEnlaceTransmissora(vector<int> bits) {
-	int tipoDeControleDeErro = 0;
+
+	// Trocar de acordo com o metodo desejado
+	int tipoDeControleDeErro = 2;
+
 	switch(tipoDeControleDeErro) {
 
 		case 0:

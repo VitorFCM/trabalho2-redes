@@ -27,6 +27,11 @@ vector<int> ReceptorControleErroCRC(vector<int> *bits)
 		}
 	}
 
+	cout << "Final:" << endl;
+	for(int i = 0; i < bits->size(); i++)
+		cout << (*bits)[i];
+	cout << endl;
+
 	//Se algum dos ultimos 31 bits for diferente de zero, significa que a mensagem esta corrompida
 	for(int i = bits->size() - 31; i < bits->size(); i++)
 	{
@@ -102,9 +107,8 @@ vector<int> CamadaEnlaceReceptoraErroBitParidadeImpar(vector<int> *bits) {
 
 void CamadaEnlaceReceptora(vector<int> bits)
 {
-
-	//Controle de erro
-	int tipoDeControleDeErro = 0;
+	// Trocar de acordo com o metodo desejado
+	int tipoDeControleDeErro = 2;
 
 	//A mensagem recebida pode estar corrompida ou nao
 	vector<int> msg_recebida;

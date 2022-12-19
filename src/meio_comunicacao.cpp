@@ -8,7 +8,7 @@ void MeioComunicacao(vector<int> bits)
 {
 	srand (time(NULL));
 
-	int probabilidadeDeErro = 10;
+	int probabilidadeDeErro = 0;
 	//Deve ser alterado entre 0 e 100
 	//Caso seja 100 todos os bits serao invertidos
 	//Caso seja 0 nenhum bit sera invertido
