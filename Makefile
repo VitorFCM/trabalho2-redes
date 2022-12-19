@@ -1,6 +1,10 @@
 cc := g++
 
-transmissao := src/transmissao
+aplicacao_receptora.o: src/receptor/aplicacao_receptora.cpp
+	$(cc) -g -I include -c src/receptor/aplicacao_receptora.cpp -o build/aplicacao_receptora.o
+
+camada_aplicacao_receptora.o: src/receptor/camada_aplicacao_receptora.cpp
+	$(cc) -g -I include -c src/receptor/camada_aplicacao_receptora.cpp -o build/camada_aplicacao_receptora.o
 
 camada_enlace_receptora.o: src/receptor/camada_enlace_receptora.cpp
 	$(cc) -g -I include -c src/receptor/camada_enlace_receptora.cpp -o build/camada_enlace_receptora.o
@@ -20,8 +24,8 @@ aplicacao_transmissora.o: src/transmissao/aplicacao_transmissora.cpp
 main.o: src/main.cpp
 	$(cc) -g -I include -c src/main.cpp -o build/main.o
 
-main: main.o aplicacao_transmissora.o camada_aplicacao_transmissora.o camada_enlace_transmissora.o meio_comunicacao.o camada_enlace_receptora.o
-	$(cc) build/main.o build/aplicacao_transmissora.o build/camada_aplicacao_transmissora.o build/camada_enlace_transmissora.o build/meio_comunicacao.o build/camada_enlace_receptora.o -o main
+main: main.o aplicacao_transmissora.o camada_aplicacao_transmissora.o camada_enlace_transmissora.o meio_comunicacao.o camada_enlace_receptora.o camada_aplicacao_receptora.o aplicacao_receptora.o
+	$(cc) build/main.o build/aplicacao_transmissora.o build/camada_aplicacao_transmissora.o build/camada_enlace_transmissora.o build/meio_comunicacao.o build/camada_enlace_receptora.o build/camada_aplicacao_receptora.o build/aplicacao_receptora.o -o main
 
 clean:
 	rm -f build/*.o all

@@ -137,4 +137,7 @@ void CamadaEnlaceReceptora(vector<int> bits)
 	}
 
 
+	CamadaAplicacaoReceptora(msg_recebida);
+
+
 }

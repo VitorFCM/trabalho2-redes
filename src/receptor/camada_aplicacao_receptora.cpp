@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include<bits/stdc++.h>
-#include "../include/functions.hpp"
+#include <bits/stdc++.h>
+#include "../../include/functions.hpp"
 
 using namespace std;
 
@@ -16,11 +16,11 @@ void CamadaAplicacaoReceptora(vector<int> bits)
 			b[j]=bits[8*i+j];
 			cout << b[j];
 		}
-		msg= msg + b.to_string();
+		msg = msg + b.to_string();
 	}
-	
+
 	cout << endl;
 
-	CamadaEnlaceReceptora(msg);
+	AplicacaoReceptora(msg);
 
 }
