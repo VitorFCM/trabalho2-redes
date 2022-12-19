@@ -20,7 +20,7 @@ void CamadaAplicacaoReceptora(vector<int> bits)
 		}
 		ich = b.to_ulong(); 
 		ch = static_cast<char>( ich );
-		msg = msg + (char) ch;
+		msg = msg + ch;
 	}
 
 	cout << endl;
